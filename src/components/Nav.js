@@ -11,6 +11,8 @@ const Nav = ({token, setToken}) => {
             <Link to="/login">Login</Link>
             <Link to="/register">Register</Link>
             <Link to="/posts">Posts</Link>
+            {token && <Link to="/profile">Profile</Link>}
+            {token && <Link to="/createpost">Add Posts</Link>}
             { token && <button onClick = {
                 () => {
                     localStorage.removeItem('token')

@@ -1,13 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import {Link} from 'react-router-dom'; 
+import React, { useEffect } from 'react';
+import {SinglePost} from './';
 
 
 
-const PostsList = ({posts, setPosts}) => {
-
-    // if (!posts) {
-    //     return <div> No Posts </div>
-    // }
+const PostsList = ({posts, setPosts, token}) => {
 
     useEffect(() => {
         fetchPosts()
@@ -16,9 +12,12 @@ const PostsList = ({posts, setPosts}) => {
 
     const fetchPosts = async () => {
 
-        const response = await fetch('http://strangers-things.herokuapp.com/api/2010-CPU-RM-WEB-PT/posts')
+        const response = await fetch('http://strangers-things.herokuapp.com/api/2010-CPU-RM-WEB-PT/posts', {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            },
+        })
         const data = await response.json();
-        // console.log(data.data.posts);
         setPosts(data.data.posts)
       }
 
@@ -26,12 +25,7 @@ const PostsList = ({posts, setPosts}) => {
         <h1>Posts</h1>
         {
             posts && posts.map((post) => {
-                return <>
-                    <div key={ post.id }>
-                        <h3>{ post.title }</h3>
-                        <div>{ post.body }</div>
-                    </div>
-                </>
+                return <SinglePost token={token} posts={posts} setPosts={setPosts} post={post} key={post._id}/>
             })
         }
     </>

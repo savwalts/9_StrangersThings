@@ -7,19 +7,24 @@ import ReactDOM from 'react-dom';
 
 import {
   BrowserRouter as Router, 
-  Route, 
-  // Link, 
-  // Switch, 
-  // Redirect
+  Route,
 } from 'react-router-dom';
 
-import './style.css';
-import './bootstrap.css';
+import './style.js';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+import {
+  headerStyle
+} from './style.js'
+
 import {
   AccountForm,
   PostsList,
   PostsAdd,
   Nav,
+  PostsView,
+  Messages,
 } from './components';
 
 const App = () => {
@@ -32,7 +37,6 @@ const App = () => {
   });
   const [user, setUser] = useState({});
   const [posts, setPosts] = useState([]);
-  console.log('token: ', token);
 
   useEffect(() => {
     fetchUser();
@@ -53,7 +57,7 @@ const App = () => {
 
 
   return <>
-      <h1>Strangers Things</h1>
+      <h1 style={headerStyle}>Strangers Things</h1>
       {user?.username && <div>Hello {user?.username}</div> }
               <Nav token={token} setToken={setToken}/>
                 <Route exact path="/login">
@@ -68,8 +72,20 @@ const App = () => {
                   <PostsList posts={posts} setPosts={setPosts} token={token}/>
                 </Route>
 
-                <Route exact path ="/postsAdd">
-                  <PostsAdd setPosts={setPosts}/>
+                <Route exact path='/'>
+                  <h1>Welcome to Stranger's Things!</h1>
+                </Route>
+
+                <Route exact path='/posts/:id'>
+                  <PostsView posts={posts} setPosts={setPosts}/>
+                </Route>
+
+                <Route exact path = "/createpost">
+                  <PostsAdd posts={posts} setPosts={setPosts} token={token}/>
+                </Route>
+
+                <Route exact path = "/profile">
+                  <Messages user={user}/>
                 </Route>
   </> 
 
