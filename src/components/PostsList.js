@@ -12,13 +12,19 @@ const PostsList = ({posts, setPosts, token}) => {
 
     const fetchPosts = async () => {
 
-        const response = await fetch('http://strangers-things.herokuapp.com/api/2010-CPU-RM-WEB-PT/posts', {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            },
-        })
-        const data = await response.json();
-        setPosts(data.data.posts)
+        if(token) {
+            const response = await fetch('http://strangers-things.herokuapp.com/api/2010-CPU-RM-WEB-PT/posts', {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                },
+            })
+            const data = await response.json();
+            setPosts(data.data.posts)
+        } else if (!token) {
+            const response = await fetch('http://strangers-things.herokuapp.com/api/2010-CPU-RM-WEB-PT/posts');
+            const data = await response.json();
+            setPosts(data.data.posts)
+        }
       }
 
     return <>

@@ -33,7 +33,7 @@ const PostsAdd = ({token, posts, setPosts}) => {
             <input type="text" value={title} onChange={(ev) => setTitle(ev.target.value)}placeholder="title"></input>
             <input type="text" value={description} onChange={(ev) => setDescription(ev.target.value)}placeholder="description"></input>
             <input type="text" value={price} onChange={(ev) => setPrice(ev.target.value)}placeholder="price"></input>
-            <button type="submit" placeholder="Create Post"></button>
+            <button type="submit" placeholder="Create Post">Post</button>
         </form>
     </>
 }
